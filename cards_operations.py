@@ -8,13 +8,14 @@ def Read_file_with_words(number_of_cards):
     chosen_words_list = []
     with open("dictionary.txt") as file:
         for line in file:
-            words_list.append(line)
+            if "ść" not in line and len(line) < 14:
+                words_list.append(line)
 
     all_words_count = len(words_list)
     while len(chosen_words_list) != number_of_cards:
         index = random.randint(0, all_words_count)
         chosen_word = words_list[index]
-        if chosen_word not in chosen_words_list and "ść" not in chosen_word:
+        if chosen_word not in chosen_words_list:
             chosen_words_list.append(chosen_word.rstrip('\n'))
 
     return chosen_words_list
@@ -55,9 +56,3 @@ def Generating_cards(number_of_cards):
     cards_to_be_created = ((5, "red"), (5, "blue"), (1, "black"), (14, "brown"))
     all_cards = Create_all_cards(cards_to_be_created, number_of_cards)
     return all_cards
-#
-#
-# if __name__ == "__main__":
-#     number_of_cards = 25
-#     main(number_of_cards)
-#     gui.Run_gui(all_cards)
