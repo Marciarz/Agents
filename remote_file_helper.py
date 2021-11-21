@@ -41,6 +41,10 @@ class FtpHelper:
         product_list = json.load(json_file)
         return product_list
 
-    def save_list_to_file(self, product_list):
+    def save_html_file_from_string(self, html_string):
         with open(self.file_path, 'w') as outfile:
-            json.dump(product_list, outfile, sort_keys=True, indent=4)
+            outfile.write(html_string)
+
+    def delete_previous_html_local_file(self):
+        if os.path.exists(self.file_path):
+            os.remove(self.file_path)

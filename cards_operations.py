@@ -2,7 +2,6 @@ from card import Card
 import random
 import main
 
-
 def Read_file_with_words(number_of_cards):
     words_list = []
     chosen_words_list = []

@@ -71,7 +71,7 @@ def Cards_reset():
 
     map = []
     row = []
-    j = 0
+
     for card_object in rects:
         if len(row) == 5:
             map.append(row)
