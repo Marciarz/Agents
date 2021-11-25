@@ -29,15 +29,7 @@ def Add_cards(cards_quantity, agent_value, cards_dictionary, available_numbers, 
         while id in used_numbers:
             id = random.randint(1, available_numbers)
 
-        already_existing_words = []
-        for card in cards_dictionary:
-            already_existing_words.append(cards_dictionary[card].word)
-
-        duplicated_word = True
-        while duplicated_word:
-            chosen_word = words_list[random.randint(0, available_numbers - 1)]
-            if chosen_word not in already_existing_words:
-                duplicated_word = False
+        chosen_word = words_list[id-1]
 
         cards_dictionary[id] = Card(id, chosen_word, agent_value)
         card_number += 1

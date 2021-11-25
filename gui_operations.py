@@ -50,10 +50,10 @@ class Rect(pygame.sprite.Sprite):
         self.update_text()
         pygame.display.update()
 
-def Cards_reset():
+def Cards_reset(game_number):
     all_cards = cards_operations.Generating_cards(25)
     reset_button = Card(26, 'RESET', 'grey', True)
-    rects = pygame.sprite.Group()
+    all_cards_rect = pygame.sprite.Group()
 
     i = 0
     x = 250
@@ -62,7 +62,7 @@ def Cards_reset():
     while i < 25:
         i += 1
         card = Rect(x, y, 175, 125, green, all_cards[i])
-        rects.add(card)
+        all_cards_rect.add(card)
         if i % 5 == 0:
             y += 150
             x = 250
@@ -72,7 +72,7 @@ def Cards_reset():
     map = []
     row = []
 
-    for card_object in rects:
+    for card_object in all_cards_rect:
         if len(row) == 5:
             map.append(row)
             row = []
@@ -81,10 +81,10 @@ def Cards_reset():
             row.append(card_object.agent)
     map.append(row)
 
-    Generate_map(map)
+    Generate_map(map, game_number)
 
-    rects.add(Rect(650, 800, 175, 70, light_blue, reset_button))
-    return rects
+    all_cards_rect.add(Rect(650, 800, 175, 70, light_blue, reset_button))
+    return all_cards_rect
 
 
 def Run_game():
@@ -95,8 +95,8 @@ def Run_game():
     window = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
     pygame.display.set_caption("Agent")
     window.fill(pink)
-
-    rects = Cards_reset()
+    game_number = 1
+    rects = Cards_reset(game_number)
 
     rects.draw(window)
     pygame.display.update()
@@ -112,7 +112,8 @@ def Run_game():
                 clicked_sprite = [s for s in rects if s.rect.collidepoint(pos)]
                 if clicked_sprite != []:
                     if clicked_sprite[0].is_reset:
-                        rects = Cards_reset()
+                        game_number += 1
+                        rects = Cards_reset(game_number)
                         rects.draw(window)
                         pygame.display.update()
                     else:
